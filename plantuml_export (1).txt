@@ -1,0 +1,60 @@
+@startuml
+
+left to right direction
+rectangle users {
+:System Administrator: as sa
+:General User: as gu
+}
+:2nd External Server: as es2
+
+rectangle controller{
+
+usecase "moitor humidity" as UC1
+usecase "monitor ambient noise level" as UC2
+usecase "monitor temperature" as UC3
+usecase "monitor air quality" as UC4
+usecase "monitor power consumption" as UC5
+usecase "change settings" as UC6
+usecase "authentication" as UC7
+usecase "multi-factor authentication" as UC8
+usecase "log in" as UC9
+usecase "display system levels" as UC10
+usecase "monitor system" as UC11
+usecase "password" as UC12
+usecase "predefined config" as UC13
+usecase "set time" as UC14
+usecase "exit" as UC15
+usecase "admin login" as UC16
+usecase "modify advanced settings" as UC17
+
+}
+
+gu <|-right- sa
+UC10 --> UC1
+UC10 --> UC2
+UC10 --> UC3
+UC10 --> UC4
+UC10 --> UC5
+UC10 --> UC6
+gu --> UC9
+es2 -- UC7
+UC9 --> UC12
+UC12 --> UC10
+UC12 .> UC7: <<include>>
+UC7 .> UC8: <<extend>>
+UC7 .> UC10
+sa --> UC9
+UC10 -left-> UC15
+UC10 --> UC13
+UC13 -up-> UC14
+sa --> UC16
+UC16 .down.> UC8: <<include>>
+UC16 --> UC10
+UC16 -left-> UC11
+UC16 --> UC17
+'down = right
+'up = left
+'left = down
+'right = up
+
+@enduml
