@@ -1,0 +1,26 @@
+@startuml
+
+left to right direction
+User as u
+:System Administrator: as sa
+:General User: as gu
+:2nd External Server: as es2
+
+rectangle controller{
+
+usecase "change system setting" as UC1
+usecase "change advance setting" as UC2
+usecase "authenticate(single factor)" as UC3
+usecase "authenticate(multi-factor)" as UC4
+ 
+}
+
+sa --> u 
+gu --> u 
+u --> UC1
+sa --> UC2
+UC1 .-> UC3: <<include>>
+UC2 .-> UC4: <<include>>
+UC4 .-> UC3: <<extend>>
+es2 --> UC2
+@enduml
